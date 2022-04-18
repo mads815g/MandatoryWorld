@@ -2,39 +2,65 @@
 using System.Collections.Generic;
 using System.Linq;
 using MandatoryWorld.Factory;
+using static MandatoryWorld.GameChecks;
 
 namespace MandatoryWorld
 {
+    /// <summary>
+    /// This is the game class. If you call Game.Run(); you start the game.
+    /// </summary>
     public class Game
     {
-        public int NumberOfMonsters { get; set; }
+        public int NumberOfTrolls { get; set; }
+        public int NumberOfGoblins { get; set; }
         public int NumberOfChests { get; set; }
-        private readonly List<Monster> _monster;
+        private readonly List<Creature> _monster;
         private readonly List<Chest> _chests;
-        readonly MonsterFactoryAbstract _monsterFactory = new MonsterFactory();
+        private readonly MonsterFactory _monsterFactory = new MonsterFactory();
+        private readonly GoblinFactory _goblinFactory = new GoblinFactory();
         readonly ChestFactoryAbstract _chestFactory = new ChestFactory();
         private readonly Hero _hero;
 
-        public Game(int maxY, int maxX, int numberOfMonsters, int numberOfChests, string heroName, int heroHp, int heroAttackPower)
+        /// <summary>
+        /// This is the constructor for the game class.
+        /// </summary>
+        /// <param name="maxY">This is the height of the game</param>
+        /// <param name="maxX">this is the width of the world</param>
+        /// <param name="numberOfTrolls">The amount of trolls in the world</param>
+        /// <param name="numberOfGoblins">The amount of goblins in the world</param>
+        /// <param name="numberOfChests">The amount of chests in the world</param>
+        /// <param name="heroName">Your hero name</param>
+        /// <param name="heroHp">Your start hp</param>
+        /// <param name="heroAttackPower">Your start attack power</param>
+        public Game(int maxY, int maxX, int numberOfTrolls, int numberOfGoblins, int numberOfChests, string heroName, int heroHp,
+            int heroAttackPower)
         {
             _hero = new Hero(heroName, heroHp, heroAttackPower);
             World.MaxX = maxX;
             World.MaxY = maxY;
-            NumberOfMonsters = numberOfMonsters;
+            NumberOfTrolls = numberOfTrolls;
+            NumberOfGoblins = numberOfGoblins;
             NumberOfChests = numberOfChests;
-            _monster = new List<Monster>();
+            _monster = new List<Creature>();
             _chests = new List<Chest>();
-            for (int i = 0; i < numberOfMonsters; i++)
+
+            for (int i = 0; i < numberOfTrolls; i++)
             {
-                _monster.Add(_monsterFactory.CreateTrolls());
-                _monster.Add(_monsterFactory.CreateGoblins());
+                Spawn(_monster, _monsterFactory.CreateCreature());
+            }
+            for (int i = 0; i < numberOfGoblins; i++)
+            {
+                Spawn(_monster, _goblinFactory.CreateCreature());
             }
             for (int i = 0; i < numberOfChests; i++)
             {
-                _chests.Add(_chestFactory.CreateChest());
+                Spawn(_chests, _chestFactory.CreateChest());
             }
-
         }
+
+        /// <summary>
+        /// This method starts the game
+        /// </summary>
         public void Run()
         {
             MonsterFactoryAbstract world = new MonsterFactory();
@@ -45,56 +71,12 @@ namespace MandatoryWorld
             {
                 Console.WriteLine($"you are at {_hero.PositionX}, {_hero.PositionY}");
                 _hero.move();
-                foreach (var monster in _monster.Where(a => a.PositionY == _hero.PositionY && a.PositionX == _hero.PositionX))
-                {
-                    if (monster.IsDead == true)
-                    {
-                        Console.WriteLine($"Dead {monster.Name}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"you have encountered {monster.Name}, fight commenced");
-                    }
-
-                    while (_hero.IsDead == false && monster.IsDead == false)
-                    {
-                        monster.RecieveHit(_hero.hit());
-                        _hero.RecieveHit(monster.hit());
-                    }
-                }
-
-                foreach (var chest in _chests)
-                {
-                    if (_hero.PositionX == chest.PositionY && _hero.PositionY == chest.PositionY)
-                    {
-                        Console.WriteLine($"you have encountered {chest.Name}, looting commenced");
-                        _hero.Loot(chest.ContainedLoot());
-                        Console.WriteLine($"You now have {_hero.AttackPower} attack and {_hero.Defense} defence");
-                    }
-                }
-                int monstersAlive = _monster.Count;
-                foreach (var monster in _monster)
-                {
-                    if (monster.IsDead == true)
-                    {
-                        monstersAlive--;
-                    }
-                }
-
-                if (monstersAlive == 0)
-                {
-                    Console.WriteLine("There are no more monster you have won the game");
-                    gameWon = true;
-                    Console.ReadKey();
-                }
-
+                MonsterCheck(_hero, _monster);
+                ChestCheck(_hero, _chests);
+                gameWon = GameWon(_monster);
             }
 
-            if (_hero.IsDead == true)
-            {
-                Console.WriteLine("You have died, Game Over");
-                Console.ReadKey();
-            }
+            _hero.GameOver();
         }
     }
 }

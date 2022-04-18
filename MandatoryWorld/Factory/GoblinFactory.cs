@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace MandatoryWorld.Factory
 {
     /// <summary>
-    /// This is the monster factory that makes trolls.
+    /// This is the goblin factory class.
     /// </summary>
-    public class MonsterFactory : MonsterFactoryAbstract
+    public class GoblinFactory : MonsterFactory
     {
         /// <summary>
-        /// This is the create method that makes trolls
+        /// This is the method that makes Goblins
         /// </summary>
-        /// <returns>This one returns trolls</returns>
+        /// <returns>It returns goblins</returns>
         public override Creature CreateCreature()
         {
-            return new Monster("Troll");
+            return new Monster("Goblin");
         }
     }
 }

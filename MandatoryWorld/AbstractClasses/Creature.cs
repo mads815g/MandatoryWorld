@@ -1,8 +1,12 @@
 ﻿using System;
+using MandatoryWorld.AbstractClasses;
 
 namespace MandatoryWorld
 {
-    public abstract class Creature
+    /// <summary>
+    /// The creature class, which inherits from Position,
+    /// </summary>
+    public abstract class Creature : Position
     {
         public string Name { get; set; }
         public int HitPoints { get; set; }
@@ -11,6 +15,10 @@ namespace MandatoryWorld
         public int Defense { get; set; }
         public bool IsDead { get; set; }
 
+        /// <summary>
+        /// The Creature class constructor
+        /// </summary>
+        /// <param name="name">name of the creature</param>
         protected Creature(string name)
         {
             Name = name;
@@ -18,6 +26,10 @@ namespace MandatoryWorld
             IsDead = false;
         }
 
+        /// <summary>
+        /// This is the hit method that decides the dmg of your hit.
+        /// </summary>
+        /// <returns></returns>
         public int hit()
         {
             Random rng = new Random();
@@ -25,6 +37,10 @@ namespace MandatoryWorld
             return damage;
         }
 
+        /// <summary>
+        /// This is the damage taken method the how much of the damagetaken that goes through.
+        /// </summary>
+        /// <param name="damageTaken">Original damage from hit</param>
         public void RecieveHit(int damageTaken)
         {
             if (damageTaken <= Defense)
@@ -34,14 +50,30 @@ namespace MandatoryWorld
             else
             {
                 CurrentHitPoints -= (damageTaken - Defense);
+                if (CurrentHitPoints < 0)
+                {
+                    CurrentHitPoints = 0;
+                }
             }
+            Console.WriteLine($"{Name} has {CurrentHitPoints} HP left");
 
             if (CurrentHitPoints <= 0)
             {
                 IsDead = true;
                 Console.WriteLine($"{Name} is dead");
             }
-            Console.WriteLine($"{Name} has {CurrentHitPoints} HP left");
+        }
+        
+        /// <summary>
+        /// This method checks if you are dead and have lost the game.
+        /// </summary>
+        public void GameOver()
+        {
+            if (this.IsDead == true)
+            {
+                Console.WriteLine("You have died, Game Over");
+                Console.ReadKey();
+            }
         }
     }
 }

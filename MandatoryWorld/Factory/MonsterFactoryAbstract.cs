@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace MandatoryWorld.Factory
 {
+    /// <summary>
+    /// The abstract monster factory
+    /// </summary>
     public abstract class MonsterFactoryAbstract
     {
-        public abstract Monster CreateTrolls();
-        public abstract Monster CreateGoblins();
+        public abstract Creature CreateCreature();
     }
 }
