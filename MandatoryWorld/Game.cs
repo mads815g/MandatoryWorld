@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Xml;
 using MandatoryWorld.Factory;
 using static MandatoryWorld.GameChecks;
 
@@ -63,7 +65,7 @@ namespace MandatoryWorld
         /// </summary>
         public void Run()
         {
-            MonsterFactoryAbstract world = new MonsterFactory();
+            ReadConfiguration();
             bool gameWon = false;
             Console.WriteLine("press one of the wasd keys to move");
 
@@ -77,6 +79,36 @@ namespace MandatoryWorld
             }
 
             _hero.GameOver();
+        }
+
+        public void ReadConfiguration()
+        {
+            XmlDocument configDoc = new XmlDocument();
+            configDoc.Load("Config.xml");
+
+            XmlNode nameNode = configDoc.DocumentElement.SelectSingleNode("Name");
+            if (nameNode != null)
+            {
+                string str = nameNode.InnerText.Trim();
+                _hero.Name = str;
+            }
+
+            XmlNode hpNode = configDoc.DocumentElement.SelectSingleNode("HitPoints");
+            if (hpNode != null)
+            {
+                String str = hpNode.InnerText.Trim();
+                int hp = Convert.ToInt32(str);
+                _hero.HitPoints = hp;
+                _hero.CurrentHitPoints = hp;
+            }
+
+            XmlNode attackPowerNode = configDoc.DocumentElement.SelectSingleNode("AttackPower");
+            if (attackPowerNode != null)
+            {
+                String str = attackPowerNode.InnerText.Trim();
+                int attackPower = Convert.ToInt32(str);
+                _hero.AttackPower = attackPower;
+            }
         }
     }
 }

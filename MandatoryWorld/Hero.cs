@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace MandatoryWorld
 {
@@ -40,7 +41,7 @@ namespace MandatoryWorld
                     }
                     else
                     {
-                        Console.WriteLine("You are at the top");
+                        Tracing.TraceWorker("You are at the top");
                     }
                     break;
                 case ConsoleKey.A:
@@ -50,7 +51,7 @@ namespace MandatoryWorld
                     }
                     else
                     {
-                        Console.WriteLine("You can't go further left");
+                        Tracing.TraceWorker("You can't go further left");
                     }
                     break;
                 case ConsoleKey.D:
