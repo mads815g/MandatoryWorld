@@ -8,7 +8,6 @@ namespace MandatoryWorld
     public class Hero : Creature
     {
         public bool Berserk { get; set; }
-        public int BerserkPower { get; set; }
         /// <summary>
         /// The hero class constructor. The hero always starts at 1,1 in the world.
         /// </summary>
