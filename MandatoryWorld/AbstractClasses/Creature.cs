@@ -30,7 +30,7 @@ namespace MandatoryWorld
         /// This is the hit method that decides the dmg of your hit.
         /// </summary>
         /// <returns></returns>
-        public int hit()
+        public int Hit()
         {
             Random rng = new Random();
             int damage = rng.Next(AttackPower);
@@ -69,7 +69,7 @@ namespace MandatoryWorld
         /// </summary>
         public void GameOver()
         {
-            if (this.IsDead == true)
+            if (this.IsDead)
             {
                 Console.WriteLine("You have died, Game Over");
                 Console.ReadKey();

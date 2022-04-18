@@ -15,24 +15,11 @@ namespace MandatoryWorld
         {
             foreach (var monster in monsters.Where(a => a.PositionY == hero.PositionY && a.PositionX == hero.PositionX))
             {
-                if (monster.IsDead)
-                {
-                    Console.WriteLine($"Dead {monster.Name}");
-                }
-                else
-                {
-                    Console.WriteLine($"you have encountered {monster.Name}, fight commenced");
-                }
+                Console.WriteLine(monster.IsDead
+                    ? $"Dead {monster.Name}"
+                    : $"you have encountered {monster.Name}, fight commenced");
 
-                while (hero.IsDead == false && monster.IsDead == false)
-                {
-                    if (hero.CurrentHitPoints < (hero.HitPoints / 2) && hero.Berserk == false)
-                    {
-                        hero.BerserkMode();
-                    }
-                    monster.RecieveHit(hero.hit());
-                    hero.RecieveHit(monster.hit());
-                }
+                Fight(hero, monster);
             }
         }
 
@@ -82,6 +69,19 @@ namespace MandatoryWorld
         public static void Spawn<T>(List<T> list, T stuff)
         {
                 list.Add(stuff);
+        }
+
+        public static void Fight(Hero hero, Creature monster)
+        {
+            while (hero.IsDead == false && monster.IsDead == false)
+            {
+                if (hero.CurrentHitPoints < (hero.HitPoints / 2) && hero.Berserk == false)
+                {
+                    hero.BerserkMode();
+                }
+                monster.RecieveHit(hero.Hit());
+                hero.RecieveHit(monster.Hit());
+            }
         }
     }
 }
