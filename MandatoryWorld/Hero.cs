@@ -6,7 +6,7 @@ namespace MandatoryWorld
     /// <summary>
     /// The hero class, which inherits from Creature.
     /// </summary>
-    public class Hero : Creature
+    public class Hero : Creature, IMove
     {
         public bool Berserk { get; set; }
         /// <summary>
@@ -115,8 +115,8 @@ namespace MandatoryWorld
         /// </summary>
         public void BerserkMode()
         {
-            this.Berserk = true;
-            this.AttackPower *= 2;
+            Berserk = true;
+            AttackPower *= 2;
             Console.WriteLine("You are low on health and have gone berserk");
             Tracing.TraceWorker("You are low on health and have gone berserk");
         }
