@@ -30,6 +30,8 @@ namespace MandatoryWorld
         /// </summary>
         public void move()
         {
+            Console.WriteLine($"you are at {PositionX}, {PositionY}");
+            Tracing.TraceWorker($"you are at {PositionX}, {PositionY}");
             var input = Console.ReadKey(true);
 
             switch (input.Key)

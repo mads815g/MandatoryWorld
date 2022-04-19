@@ -83,5 +83,11 @@ namespace MandatoryWorld
                 hero.RecieveHit(monster.Hit());
             }
         }
+
+        public static void GameStart()
+        {
+            Console.WriteLine("press one of the wasd keys to move");
+            Tracing.TraceWorker("press one of the wasd keys to move");
+        }
     }
 }
