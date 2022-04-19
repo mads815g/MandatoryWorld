@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using MandatoryWorld.AbstractClasses;
+using MandatoryWorld.Observers;
 
 namespace MandatoryWorld
 {
@@ -15,6 +17,7 @@ namespace MandatoryWorld
         public int Defense { get; set; }
         public bool IsDead { get; set; }
 
+        private List<IObserver> _observers = new List<IObserver>();
         /// <summary>
         /// The Creature class constructor
         /// </summary>
@@ -56,11 +59,12 @@ namespace MandatoryWorld
                 }
             }
             Console.WriteLine($"{Name} has {CurrentHitPoints} HP left");
+            Tracing.TraceWorker($"{Name} has {CurrentHitPoints} HP left");
 
             if (CurrentHitPoints <= 0)
             {
                 IsDead = true;
-                Console.WriteLine($"{Name} is dead");
+                Notify();
             }
         }
         
@@ -72,7 +76,20 @@ namespace MandatoryWorld
             if (this.IsDead)
             {
                 Console.WriteLine("You have died, Game Over");
+                Tracing.TraceWorker("You have died, Game Over");
                 Console.ReadKey();
+            }
+        }
+
+        public void Attach(IObserver observer)
+        {
+            this._observers.Add(observer);
+        }
+        public void Notify()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update(this);
             }
         }
     }

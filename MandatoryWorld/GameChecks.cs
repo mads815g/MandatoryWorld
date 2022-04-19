@@ -15,9 +15,8 @@ namespace MandatoryWorld
         {
             foreach (var monster in monsters.Where(a => a.PositionY == hero.PositionY && a.PositionX == hero.PositionX))
             {
-                Console.WriteLine(monster.IsDead
-                    ? $"Dead {monster.Name}"
-                    : $"you have encountered {monster.Name}, fight commenced");
+                Console.WriteLine(monster.IsDead ? $"Dead {monster.Name}" : $"you have encountered {monster.Name}, fight commenced");
+                Tracing.TraceWorker(monster.IsDead ? $"Dead {monster.Name}" : $"you have encountered {monster.Name}, fight commenced");
 
                 Fight(hero, monster);
             }
@@ -34,8 +33,8 @@ namespace MandatoryWorld
             foreach (var chest in chests.Where(c => c.PositionY == hero.PositionY && c.PositionX == hero.PositionX))
             {
                 Console.WriteLine($"you have encountered {chest.Name}, looting commenced");
+                Tracing.TraceWorker($"you have encountered {chest.Name}, looting commenced");
                 hero.Loot(chest.ContainedLoot());
-                Console.WriteLine($"You now have {hero.AttackPower} attack and {hero.Defense} defense");
             }
         }
 
@@ -55,6 +54,7 @@ namespace MandatoryWorld
             if (monstersAlive == 0)
             {
                 Console.WriteLine("There are no more monster you have won the game");
+                Tracing.TraceWorker("There are no more monster you have won the game");
                 gameWon = true;
                 Console.ReadKey();
             }

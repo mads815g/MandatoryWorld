@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using MandatoryWorld.Factory;
+using MandatoryWorld.Observers;
 using static MandatoryWorld.GameChecks;
 
 namespace MandatoryWorld
@@ -67,11 +68,21 @@ namespace MandatoryWorld
         {
             ReadConfiguration();
             bool gameWon = false;
+            var observer = new ObserverA();
+            var monsterObserver = new ObserverB();
+            foreach (var creature in _monster)
+            {
+                creature.Attach(monsterObserver);
+            }
+            _hero.Attach(observer);
+
             Console.WriteLine("press one of the wasd keys to move");
+            Tracing.TraceWorker("press one of the wasd keys to move");
 
             while (_hero.IsDead == false && gameWon == false)
             {
                 Console.WriteLine($"you are at {_hero.PositionX}, {_hero.PositionY}");
+                Tracing.TraceWorker($"you are at {_hero.PositionX}, {_hero.PositionY}");
                 _hero.move();
                 MonsterCheck(_hero, _monster);
                 ChestCheck(_hero, _chests);
