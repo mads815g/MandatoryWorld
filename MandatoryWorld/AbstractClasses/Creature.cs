@@ -74,7 +74,7 @@ namespace MandatoryWorld
         /// </summary>
         public void GameOver()
         {
-            if (this.IsDead)
+            if (IsDead)
             {
                 Console.WriteLine("You have died, Game Over");
                 Tracing.TraceWorker("You have died, Game Over", TraceEventType.Information);
@@ -84,7 +84,12 @@ namespace MandatoryWorld
 
         public void Attach(IObserver observer)
         {
-            this._observers.Add(observer);
+            _observers.Add(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            _observers.Remove(observer);
         }
         public void Notify()
         {
