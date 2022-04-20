@@ -30,8 +30,8 @@ namespace MandatoryWorld
         /// </summary>
         public void move()
         {
-            Console.WriteLine($"you are at {PositionX}, {PositionY}");
-            Tracing.TraceWorker($"you are at {PositionX}, {PositionY}");
+            Console.WriteLine($"{Name} is at {PositionX}, {PositionY}");
+            Tracing.TraceWorker($"{Name} is at {PositionX}, {PositionY}", TraceEventType.Information);
             var input = Console.ReadKey(true);
 
             switch (input.Key)
@@ -43,8 +43,8 @@ namespace MandatoryWorld
                     }
                     else
                     {
-                        Console.WriteLine("You are at the top");
-                        Tracing.TraceWorker("You are at the top");
+                        Console.WriteLine($"{Name} is at the top");
+                        Tracing.TraceWorker($"{Name} is at the top", TraceEventType.Information);
                     }
                     break;
                 case ConsoleKey.A:
@@ -54,8 +54,8 @@ namespace MandatoryWorld
                     }
                     else
                     {
-                        Console.WriteLine("You can't go further left");
-                        Tracing.TraceWorker("You can't go further left");
+                        Console.WriteLine($"{Name} can't go further left");
+                        Tracing.TraceWorker($"{Name} can't go further left", TraceEventType.Information);
                     }
                     break;
                 case ConsoleKey.D:
@@ -65,8 +65,8 @@ namespace MandatoryWorld
                     }
                     else
                     {
-                        Console.WriteLine("You can't go further Right");
-                        Tracing.TraceWorker("You can't go further Right");
+                        Console.WriteLine($"{Name} can't go further Right");
+                        Tracing.TraceWorker($"{Name} can't go further Right", TraceEventType.Information);
                     }
                     break;
                 case ConsoleKey.S:
@@ -76,13 +76,13 @@ namespace MandatoryWorld
                     }
                     else
                     {
-                        Console.WriteLine("You can't go further Down");
-                        Tracing.TraceWorker("You can't go further Down");
+                        Console.WriteLine($"{Name} can't go further Down");
+                        Tracing.TraceWorker($"{Name} can't go further Down", TraceEventType.Information);
                     }
                     break;
                 default:
-                    Console.WriteLine("You are not moving");
-                    Tracing.TraceWorker("You are not moving");
+                    Console.WriteLine($"{Name} is not moving");
+                    Tracing.TraceWorker($"{Name} is not moving", TraceEventType.Information);
                     break;
             }
 
@@ -98,15 +98,15 @@ namespace MandatoryWorld
             {
                 AttackItem attackItem = (AttackItem)item;
                 AttackPower += attackItem.Damage;
-                Console.WriteLine($"You now have {AttackPower} attack and {Defense} defense");
-                Tracing.TraceWorker($"You now have {AttackPower} attack and {Defense} defense");
+                Console.WriteLine($"{Name} now have {AttackPower} attack and {Defense} defense");
+                Tracing.TraceWorker($"{Name} now have {AttackPower} attack and {Defense} defense", TraceEventType.Information);
             } 
             else if (item.GetType().Name == "DefenseItem")
             {
                 DefenseItem defenseItem = (DefenseItem)item;
                 Defense += defenseItem.DamageReduction;
-                Console.WriteLine($"You now have {AttackPower} attack and {Defense} defense");
-                Tracing.TraceWorker($"You now have {AttackPower} attack and {Defense} defense");
+                Console.WriteLine($"{Name} now have {AttackPower} attack and {Defense} defense");
+                Tracing.TraceWorker($"{Name} now have {AttackPower} attack and {Defense} defense", TraceEventType.Information);
             }
         }
 
@@ -117,8 +117,8 @@ namespace MandatoryWorld
         {
             Berserk = true;
             AttackPower *= 2;
-            Console.WriteLine("You are low on health and have gone berserk");
-            Tracing.TraceWorker("You are low on health and have gone berserk");
+            Console.WriteLine($"{Name} are low on health and have gone berserk");
+            Tracing.TraceWorker($"{Name} are low on health and have gone berserk", TraceEventType.Information);
         }
     }
 }

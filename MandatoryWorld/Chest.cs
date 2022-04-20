@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using MandatoryWorld.AbstractClasses;
 
 namespace MandatoryWorld
@@ -30,7 +31,7 @@ namespace MandatoryWorld
             if (Looted)
             {
                 Console.WriteLine("You already Looted this chest");
-                Tracing.TraceWorker("You already Looted this chest");
+                Tracing.TraceWorker("You already Looted this chest", TraceEventType.Information);
                 return new EmptyChest("EmptyChest");
             }
 
@@ -39,14 +40,14 @@ namespace MandatoryWorld
             {
                 int damage = rng.Next(1, 5);
                 Console.WriteLine("You got a Weapon");
-                Tracing.TraceWorker("You got a Weapon");
+                Tracing.TraceWorker("You got a Weapon", TraceEventType.Information);
                 Looted = true;
                 return new AttackItem("Weapon", damage);
             }
 
             int reduction = rng.Next(1, 5);
             Console.WriteLine("You got an Armor");
-            Tracing.TraceWorker("You got an Armor");
+            Tracing.TraceWorker("You got an Armor", TraceEventType.Information);
             Looted = true;
             return new DefenseItem("Armor", reduction);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MandatoryWorld
@@ -15,8 +16,8 @@ namespace MandatoryWorld
         {
             foreach (var monster in monsters.Where(a => a.PositionY == hero.PositionY && a.PositionX == hero.PositionX))
             {
-                Console.WriteLine(monster.IsDead ? $"Dead {monster.Name}" : $"you have encountered {monster.Name}, fight commenced");
-                Tracing.TraceWorker(monster.IsDead ? $"Dead {monster.Name}" : $"you have encountered {monster.Name}, fight commenced");
+                Console.WriteLine(monster.IsDead ? $"Dead {monster.Name}" : $"{hero.Name} has encountered {monster.Name}, fight commenced");
+                Tracing.TraceWorker(monster.IsDead ? $"Dead {monster.Name}" : $"{hero.Name} has encountered {monster.Name}, fight commenced", TraceEventType.Information);
 
                 Fight(hero, monster);
             }
@@ -32,8 +33,8 @@ namespace MandatoryWorld
             if (hero.IsDead) return;
             foreach (var chest in chests.Where(c => c.PositionY == hero.PositionY && c.PositionX == hero.PositionX))
             {
-                Console.WriteLine($"you have encountered {chest.Name}, looting commenced");
-                Tracing.TraceWorker($"you have encountered {chest.Name}, looting commenced");
+                Console.WriteLine($"{hero.Name} has encountered {chest.Name}, looting commenced");
+                Tracing.TraceWorker($"{hero.Name} has encountered {chest.Name}, looting commenced", TraceEventType.Information);
                 hero.Loot(chest.ContainedLoot());
             }
         }
@@ -53,8 +54,8 @@ namespace MandatoryWorld
             }
             if (monstersAlive == 0)
             {
-                Console.WriteLine("There are no more monster you have won the game");
-                Tracing.TraceWorker("There are no more monster you have won the game");
+                Console.WriteLine("There are no more monsters you have won the game");
+                Tracing.TraceWorker("There are no more monsters you have won the game", TraceEventType.Information);
                 gameWon = true;
                 Console.ReadKey();
             }
@@ -87,7 +88,7 @@ namespace MandatoryWorld
         public static void GameStart()
         {
             Console.WriteLine("press one of the wasd keys to move");
-            Tracing.TraceWorker("press one of the wasd keys to move");
+            Tracing.TraceWorker("press one of the wasd keys to move", TraceEventType.Information);
         }
     }
 }

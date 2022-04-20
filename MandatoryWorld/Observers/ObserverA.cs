@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace MandatoryWorld.Observers
         public void Update(Creature creature)
         { 
             Console.WriteLine($"{creature.Name} is dead");
-            Tracing.TraceWorker($"{creature.Name} is dead");
+            Tracing.TraceWorker($"{creature.Name} is dead", TraceEventType.Information);
         }
     }
 }

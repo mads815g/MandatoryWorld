@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using MandatoryWorld.AbstractClasses;
 using MandatoryWorld.Observers;
 
@@ -59,7 +60,7 @@ namespace MandatoryWorld
                 }
             }
             Console.WriteLine($"{Name} has {CurrentHitPoints} HP left");
-            Tracing.TraceWorker($"{Name} has {CurrentHitPoints} HP left");
+            Tracing.TraceWorker($"{Name} has {CurrentHitPoints} HP left", TraceEventType.Information);
 
             if (CurrentHitPoints <= 0)
             {
@@ -76,7 +77,7 @@ namespace MandatoryWorld
             if (this.IsDead)
             {
                 Console.WriteLine("You have died, Game Over");
-                Tracing.TraceWorker("You have died, Game Over");
+                Tracing.TraceWorker("You have died, Game Over", TraceEventType.Information);
                 Console.ReadKey();
             }
         }
