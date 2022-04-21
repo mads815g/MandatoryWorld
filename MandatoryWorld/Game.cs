@@ -17,10 +17,10 @@ namespace MandatoryWorld
         public int NumberOfTrolls { get; set; }
         public int NumberOfGoblins { get; set; }
         public int NumberOfChests { get; set; }
-        private readonly List<Creature> _monster;
+        private readonly List<Monster> _monster;
         private readonly List<Chest> _chests;
-        private readonly MonsterFactory _monsterFactory = new MonsterFactory();
-        private readonly GoblinFactory _goblinFactory = new GoblinFactory();
+        private readonly MonsterFactoryAbstract _goblinFactory = new GoblinFactory();
+        private readonly AbstractHeroFactory _heroFactory = new HeroFactory();
         readonly ChestFactoryAbstract _chestFactory = new ChestFactory();
         private readonly Hero _hero;
 
@@ -38,22 +38,19 @@ namespace MandatoryWorld
         public Game(int maxY, int maxX, int numberOfTrolls, int numberOfGoblins, int numberOfChests, string heroName, int heroHp,
             int heroAttackPower)
         {
-            _hero = new Hero(heroName, heroHp, heroAttackPower);
+            _hero = _heroFactory.CreateHero("MadsHero", 10, 100);
             World.MaxX = maxX;
             World.MaxY = maxY;
             NumberOfTrolls = numberOfTrolls;
             NumberOfGoblins = numberOfGoblins;
             NumberOfChests = numberOfChests;
-            _monster = new List<Creature>();
+            _monster = new List<Monster>();
             _chests = new List<Chest>();
 
-            for (int i = 0; i < numberOfTrolls; i++)
-            {
-                Spawn(_monster, _monsterFactory.CreateCreature());
-            }
+
             for (int i = 0; i < numberOfGoblins; i++)
             {
-                Spawn(_monster, _goblinFactory.CreateCreature());
+                Spawn(_monster, _goblinFactory.CreateCreature("goblin"));
             }
             for (int i = 0; i < numberOfChests; i++)
             {

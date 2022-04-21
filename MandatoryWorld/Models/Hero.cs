@@ -1,28 +1,20 @@
 ﻿using System;
 using System.Diagnostics;
+using MandatoryWorld.AbstractClasses;
 
 namespace MandatoryWorld
 {
     /// <summary>
     /// The hero class, which inherits from Creature.
     /// </summary>
-    public class Hero : Creature, IMove
+    public class Hero : Creature
     {
         public bool Berserk { get; set; }
-        /// <summary>
-        /// The hero class constructor. The hero always starts at 1,1 in the world.
-        /// </summary>
-        /// <param name="name">The name of the hero</param>
-        /// <param name="hitPoints">The health points of the hero</param>
-        /// <param name="attackPower">The attack power of the hero</param>
-        public Hero(string name, int hitPoints, int attackPower) : base(name)
+        public string Name { get; set; }
+
+        public Hero(string name) : base(name)
         {
-            PositionX = 1;
-            PositionY = 1;
-            HitPoints = hitPoints;
-            CurrentHitPoints = HitPoints;
-            AttackPower = attackPower;
-            Berserk = false;
+            Name = name;
         }
 
         /// <summary>
@@ -30,16 +22,16 @@ namespace MandatoryWorld
         /// </summary>
         public void move()
         {
-            Console.WriteLine($"{Name} is at {PositionX}, {PositionY}");
-            Tracing.TraceWorker($"{Name} is at {PositionX}, {PositionY}", TraceEventType.Information);
+            Console.WriteLine($"{Name} is at {Position.PositionX}, {Position.PositionY}");
+            Tracing.TraceWorker($"{Name} is at {Position.PositionX}, {Position.PositionY}", TraceEventType.Information);
             var input = Console.ReadKey(true);
 
             switch (input.Key)
             {
                 case ConsoleKey.W:
-                    if (PositionY < World.MaxY)
+                    if (Position.PositionY < World.MaxY)
                     {
-                        PositionY += 1;
+                        Position.PositionY += 1;
                     }
                     else
                     {
@@ -48,9 +40,9 @@ namespace MandatoryWorld
                     }
                     break;
                 case ConsoleKey.A:
-                    if (PositionX > 1)
+                    if (Position.PositionX > 1)
                     {
-                        PositionX -= 1;
+                        Position.PositionX -= 1;
                     }
                     else
                     {
@@ -59,9 +51,9 @@ namespace MandatoryWorld
                     }
                     break;
                 case ConsoleKey.D:
-                    if (PositionX < World.MaxX)
+                    if (Position.PositionX < World.MaxX)
                     {
-                        PositionX += 1;
+                        Position.PositionX += 1;
                     }
                     else
                     {
@@ -70,9 +62,9 @@ namespace MandatoryWorld
                     }
                     break;
                 case ConsoleKey.S:
-                    if (PositionY > 1)
+                    if (Position.PositionY > 1)
                     {
-                        PositionY -= 1;
+                        Position.PositionY -= 1;
                     }
                     else
                     {

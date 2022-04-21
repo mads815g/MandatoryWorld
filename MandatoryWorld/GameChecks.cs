@@ -12,9 +12,9 @@ namespace MandatoryWorld
         /// </summary>
         /// <param name="hero">The hero that is used</param>
         /// <param name="monsters">The list of monsters for the current game</param>
-        public static void MonsterCheck(Hero hero, List<Creature> monsters)
+        public static void MonsterCheck(Hero hero, List<Monster> monsters)
         {
-            foreach (var monster in monsters.Where(a => a.PositionY == hero.PositionY && a.PositionX == hero.PositionX))
+            foreach (var monster in monsters.Where(a => a.Position.PositionY == hero.Position.PositionY && a.Position.PositionX == hero.Position.PositionX))
             {
                 Console.WriteLine(monster.IsDead ? $"Dead {monster.Name}" : $"{hero.Name} has encountered {monster.Name}, fight commenced");
                 Tracing.TraceWorker(monster.IsDead ? $"Dead {monster.Name}" : $"{hero.Name} has encountered {monster.Name}, fight commenced", TraceEventType.Information);
@@ -31,7 +31,7 @@ namespace MandatoryWorld
         public static void ChestCheck(Hero hero, List<Chest>chests)
         {
             if (hero.IsDead) return;
-            foreach (var chest in chests.Where(c => c.PositionY == hero.PositionY && c.PositionX == hero.PositionX))
+            foreach (var chest in chests.Where(c => c.Position.PositionY == hero.Position.PositionY && c.Position.PositionX == hero.Position.PositionX))
             {
                 Console.WriteLine($"{hero.Name} has encountered {chest.Name}, looting commenced");
                 Tracing.TraceWorker($"{hero.Name} has encountered {chest.Name}, looting commenced", TraceEventType.Information);
@@ -44,7 +44,7 @@ namespace MandatoryWorld
         /// </summary>
         /// <param name="monsters">The list of monster for the current game</param>
         /// <returns>The gameWon bool, if there are no more monsters left, it is set to true</returns>
-        public static bool GameWon(List<Creature> monsters)
+        public static bool GameWon(List<Monster> monsters)
         {
             var gameWon = false;
             int monstersAlive = monsters.Count;
@@ -72,7 +72,7 @@ namespace MandatoryWorld
                 list.Add(stuff);
         }
 
-        public static void Fight(Hero hero, Creature monster)
+        public static void Fight(Hero hero, Monster monster)
         {
             while (hero.IsDead == false && monster.IsDead == false)
             {

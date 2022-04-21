@@ -9,15 +9,16 @@ namespace MandatoryWorld.Factory
     /// <summary>
     /// This is the goblin factory class.
     /// </summary>
-    public class GoblinFactory : MonsterFactory
+    public class GoblinFactory : MonsterFactoryAbstract
     {
-        /// <summary>
-        /// This is the method that makes Goblins
-        /// </summary>
-        /// <returns>It returns goblins</returns>
-        public override Creature CreateCreature()
+        protected override (int, int) GetAttackPowerRange()
         {
-            return new Monster("Goblin");
+            return (3, 10);
+        }
+
+        protected override (int, int) GetHitPointRange()
+        {
+            return (30, 100);
         }
     }
 }

@@ -7,11 +7,12 @@ namespace MandatoryWorld
     /// <summary>
     /// This is the chest class, that inherits from position.
     /// </summary>
-    public class Chest : Position
+    public class Chest
     {
         public string Name { get; set; }
         private static Random rng = new Random();
         public bool Looted { get; set; }
+        public Position Position { get; set; }
 
         /// <summary>
         /// The constructor for chest doesn't take parameters, because the position is randomly generated in Position, looted starts as false and the name is always chest.

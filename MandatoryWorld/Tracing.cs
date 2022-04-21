@@ -19,15 +19,9 @@ namespace MandatoryWorld
             TextWriterTraceListener listener = new TextWriterTraceListener("GameFile.txt");
             listener.Filter = new EventTypeFilter(SourceLevels.Information);
             ts.Listeners.Add(listener);
-            Test(stuff, type);
+            ts.TraceEvent(type, 1, stuff);
             ts.Close();
             
         }
-        static void Test(string stuff, TraceEventType type)
-        {
-            ts.TraceEvent(type, 1, stuff);
-        }
-
-
     }
 }

@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace MandatoryWorld.Factory
 {
-    /// <summary>
-    /// This is the chest factory that creates chests.
-    /// </summary>
-    public class ChestFactory : ChestFactoryAbstract
+    public class HeroFactory : AbstractHeroFactory
     {
     }
 }
