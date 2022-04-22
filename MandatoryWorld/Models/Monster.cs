@@ -9,10 +9,8 @@ namespace MandatoryWorld
     /// </summary>
     public class Monster : Creature
     {
-        public string Name { get; set; }
         public Monster(string name) : base(name)
         {
-            Name = name;
         }
     }
 }

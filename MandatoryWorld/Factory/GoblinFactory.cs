@@ -11,6 +11,11 @@ namespace MandatoryWorld.Factory
     /// </summary>
     public class GoblinFactory : MonsterFactoryAbstract
     {
+        public override string GetName()
+        {
+            return "Goblin";
+        }
+
         protected override (int, int) GetAttackPowerRange()
         {
             return (3, 10);

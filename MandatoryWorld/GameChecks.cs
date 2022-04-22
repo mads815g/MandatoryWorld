@@ -16,8 +16,7 @@ namespace MandatoryWorld
         {
             foreach (var monster in monsters.Where(a => a.Position.PositionY == hero.Position.PositionY && a.Position.PositionX == hero.Position.PositionX))
             {
-                Console.WriteLine(monster.IsDead ? $"Dead {monster.Name}" : $"{hero.Name} has encountered {monster.Name}, fight commenced");
-                Tracing.TraceWorker(monster.IsDead ? $"Dead {monster.Name}" : $"{hero.Name} has encountered {monster.Name}, fight commenced", TraceEventType.Information);
+                Logger.LogInformation(monster.IsDead ? $"Dead {monster.Name}" : $"{hero.Name} has encountered {monster.Name}, fight commenced");
 
                 Fight(hero, monster);
             }
@@ -33,8 +32,8 @@ namespace MandatoryWorld
             if (hero.IsDead) return;
             foreach (var chest in chests.Where(c => c.Position.PositionY == hero.Position.PositionY && c.Position.PositionX == hero.Position.PositionX))
             {
-                Console.WriteLine($"{hero.Name} has encountered {chest.Name}, looting commenced");
-                Tracing.TraceWorker($"{hero.Name} has encountered {chest.Name}, looting commenced", TraceEventType.Information);
+                Logger.LogInformation($"{hero.Name} has encountered {chest.Name}, looting commenced");
+
                 hero.Loot(chest.ContainedLoot());
             }
         }
@@ -54,8 +53,7 @@ namespace MandatoryWorld
             }
             if (monstersAlive == 0)
             {
-                Console.WriteLine("There are no more monsters you have won the game");
-                Tracing.TraceWorker("There are no more monsters you have won the game", TraceEventType.Information);
+                Logger.LogCritical("There are no more monsters you have won the game");
                 gameWon = true;
                 Console.ReadKey();
             }
@@ -87,8 +85,7 @@ namespace MandatoryWorld
 
         public static void GameStart()
         {
-            Console.WriteLine("press one of the wasd keys to move");
-            Tracing.TraceWorker("press one of the wasd keys to move", TraceEventType.Information);
+            Logger.LogInformation("press one of the wasd keys to move");
         }
     }
 }

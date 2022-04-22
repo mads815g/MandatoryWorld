@@ -35,13 +35,12 @@ namespace MandatoryWorld
         /// <param name="heroName">Your hero name</param>
         /// <param name="heroHp">Your start hp</param>
         /// <param name="heroAttackPower">Your start attack power</param>
-        public Game(int maxY, int maxX, int numberOfTrolls, int numberOfGoblins, int numberOfChests, string heroName, int heroHp,
+        public Game(int maxY, int maxX, int numberOfGoblins, int numberOfChests, string heroName, int heroHp,
             int heroAttackPower)
         {
             _hero = _heroFactory.CreateHero("MadsHero", 10, 100);
             World.MaxX = maxX;
             World.MaxY = maxY;
-            NumberOfTrolls = numberOfTrolls;
             NumberOfGoblins = numberOfGoblins;
             NumberOfChests = numberOfChests;
             _monster = new List<Monster>();
@@ -50,7 +49,7 @@ namespace MandatoryWorld
 
             for (int i = 0; i < numberOfGoblins; i++)
             {
-                Spawn(_monster, _goblinFactory.CreateCreature("goblin"));
+                Spawn(_monster, _goblinFactory.CreateCreature());
             }
             for (int i = 0; i < numberOfChests; i++)
             {

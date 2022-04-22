@@ -15,8 +15,7 @@ namespace MandatoryWorld.Observers
         /// <param name="creature">Creature that is dead</param>
         public void Update(Creature creature)
         {
-            Console.WriteLine($"{creature.Name} is dead");
-            Tracing.TraceWorker($"{creature.Name} is dead", TraceEventType.Information);
+            Logger.LogCritical($"{creature.Name} is dead");
         }
     }
 }

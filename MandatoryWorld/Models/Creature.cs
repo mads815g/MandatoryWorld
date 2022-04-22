@@ -20,6 +20,7 @@ namespace MandatoryWorld
         public Position Position { get; set; }
 
         private List<IObserver> _observers = new List<IObserver>();
+        private CreatureController _creatureController = new CreatureController();
         /// <summary>
         /// The Creature class constructor
         /// </summary>
@@ -31,56 +32,20 @@ namespace MandatoryWorld
             IsDead = false;
         }
 
-        /// <summary>
-        /// This is the hit method that decides the dmg of your hit.
-        /// </summary>
-        /// <returns></returns>
+       
         public int Hit()
         {
-            Random rng = new Random();
-            int damage = rng.Next(AttackPower);
-            return damage;
+            return _creatureController.Hit(this);
         }
 
-        /// <summary>
-        /// This is the damage taken method the how much of the damagetaken that goes through.
-        /// </summary>
-        /// <param name="damageTaken">Original damage from hit</param>
         public void RecieveHit(int damageTaken)
         {
-            if (damageTaken <= Defense)
-            {
-                CurrentHitPoints -= 0;
-            }
-            else
-            {
-                CurrentHitPoints -= (damageTaken - Defense);
-                if (CurrentHitPoints < 0)
-                {
-                    CurrentHitPoints = 0;
-                }
-            }
-            Console.WriteLine($"{Name} has {CurrentHitPoints} HP left");
-            Tracing.TraceWorker($"{Name} has {CurrentHitPoints} HP left", TraceEventType.Information);
-
-            if (CurrentHitPoints <= 0)
-            {
-                IsDead = true;
-                Notify();
-            }
+            _creatureController.RecieveHit(damageTaken, this);
         }
 
-        /// <summary>
-        /// This method checks if you are dead and have lost the game.
-        /// </summary>
         public void GameOver()
         {
-            if (IsDead)
-            {
-                Console.WriteLine($"{Name} have died, Game Over");
-                Tracing.TraceWorker($"{Name} have died, Game Over", TraceEventType.Information);
-                Console.ReadKey();
-            }
+            _creatureController.GameOver(this);
         }
 
         public void Attach(IObserver observer)

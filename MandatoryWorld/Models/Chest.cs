@@ -31,8 +31,7 @@ namespace MandatoryWorld
         {
             if (Looted)
             {
-                Console.WriteLine("You already Looted this chest");
-                Tracing.TraceWorker("You already Looted this chest", TraceEventType.Information);
+                Logger.LogInformation("You already Looted this chest");
                 return new EmptyChest("EmptyChest");
             }
 
@@ -40,15 +39,13 @@ namespace MandatoryWorld
             if (result == 1)
             {
                 int damage = rng.Next(1, 5);
-                Console.WriteLine("You got a Weapon");
-                Tracing.TraceWorker("You got a Weapon", TraceEventType.Information);
+                Logger.LogInformation("You got a Weapon");
                 Looted = true;
                 return new AttackItem("Weapon", damage);
             }
 
             int reduction = rng.Next(1, 5);
-            Console.WriteLine("You got an Armor");
-            Tracing.TraceWorker("You got an Armor", TraceEventType.Information);
+            Logger.LogInformation("You got an Armor");
             Looted = true;
             return new DefenseItem("Armor", reduction);
         }

@@ -12,13 +12,14 @@ namespace MandatoryWorld.Factory
     /// </summary>
     public abstract class MonsterFactoryAbstract
     {
-        public Monster CreateCreature(string name)
+        public Monster CreateCreature()
         {
             var rng = new Random();
 
             var (minHitPoints, maxHitPoints) = GetHitPointRange();
             var (minAttackPower, maxAttackPower) = GetAttackPowerRange();
             var hitPoints = rng.Next(minHitPoints, maxHitPoints);
+            var name = GetName();
             return new Monster(name)
             {
                 Name = name,
@@ -44,7 +45,8 @@ namespace MandatoryWorld.Factory
                 PositionY = y,
             };
         }
-        
+
+        public abstract string GetName();
         protected abstract (int, int) GetAttackPowerRange();
 
         protected abstract (int, int) GetHitPointRange();
