@@ -15,7 +15,6 @@ namespace MandatoryWorld
         public static void TraceWorker(string stuff, TraceEventType type)
         {
             ts.Switch = new SourceSwitch("switch", "All");
-            ts.Listeners.Remove("Default");
             TextWriterTraceListener listener = new TextWriterTraceListener("GameFile.txt");
             listener.Filter = new EventTypeFilter(SourceLevels.Information);
             ts.Listeners.Add(listener);

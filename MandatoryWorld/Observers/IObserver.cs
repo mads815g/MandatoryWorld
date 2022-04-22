@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace MandatoryWorld.Observers
 {
-    /// <summary>
-    /// small and focused interface like solid said.
-    /// </summary>
     public interface IObserver
     {
         // Receive update from Creature
